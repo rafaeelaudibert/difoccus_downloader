@@ -25,5 +25,5 @@ for (const offset = 0; offset < PHOTO_COUNT; offset += PER_PAGE) {
     urls.push(`https://difoccus.websiteseguro.com/fotos/zip.php?z=${url}`)
 }
 
-console.log("The URLs you need to download are: ", urls)
+console.info("The URLs you need to download are: ", urls)
 
