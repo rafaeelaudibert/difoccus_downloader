@@ -19,6 +19,8 @@ You might adjust `PER_PAGE` and `PHOTO_COUNT` before you run the script to bette
 
 The result will be a list of URLs where you can download your data from.
 
+**NOTE:** The script might take a while to run because Difoccus' server isn't meant to download that many photos at the same time. It takes ~15s every `.zip` file we generate.
+
 ## Author 🧙
 
 [Rafael Baldasso Audibert](https://github.com/rafaeelaudibert)
