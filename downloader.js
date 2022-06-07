@@ -5,13 +5,9 @@ const CONTRATO = document.getElementById('idContrato').value
 const EVENTO = document.getElementById('idEvento').value
 
 const data = await fetch("https://difoccus.websiteseguro.com/fotos/api/Api.php", {
-    "headers": { "accept": "*/*", "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
-    "referrer": "http://www.difoccus.com.br/",
-    "referrerPolicy": "strict-origin-when-cross-origin",
+    "headers": { "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
     "body": `apiuser=api&apipin=g3r3nc14d0r&action=getfotos&contrato=${CONTRATO}&evento=${EVENTO}`,
     "method": "POST",
-    "mode": "cors",
-    "credentials": "omit"
 }).then(data => data.json());
 
 const urls = []
@@ -21,13 +17,9 @@ for (const offset = 0; offset < PHOTO_COUNT; offset += PER_PAGE) {
     const body = `apiuser=api&apipin=g3r3nc14d0r&action=download&contrato=${CONTRATO}&evento=${EVENTO}${photosQuery}`
 
     const url = await fetch("https://difoccus.websiteseguro.com/fotos/api/Api.php", {
-        "headers": { "accept": "*/*", "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
-        "referrer": "http://www.difoccus.com.br/",
-        "referrerPolicy": "strict-origin-when-cross-origin",
+        "headers": { "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
         "body": body,
         "method": "POST",
-        "mode": "cors",
-        "credentials": "omit"
     }).then(data => data.text()).then(url => url.replace(/"/g, ''))
 
     urls.push(`https://difoccus.websiteseguro.com/fotos/zip.php?z=${url}`)
