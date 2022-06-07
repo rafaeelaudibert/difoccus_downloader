@@ -11,19 +11,26 @@ const data = await fetch("https://difoccus.websiteseguro.com/fotos/api/Api.php",
 }).then(data => data.json());
 
 const urls = []
+
+console.group("Creating ZIPs...")
 for (const offset = 0; offset < PHOTO_COUNT; offset += PER_PAGE) {
     const photos = [...data].splice(offset, PER_PAGE)
     const photosQuery = photos.map(f => f.original).map((original, idx) => `&imagens[${idx}][original]=${original}`).join('')
     const body = `apiuser=api&apipin=g3r3nc14d0r&action=download&contrato=${CONTRATO}&evento=${EVENTO}${photosQuery}`
 
+    console.log(`Generating file for photos ${offset + 1} to ${offset + PER_PAGE + 1}...`)
     const url = await fetch("https://difoccus.websiteseguro.com/fotos/api/Api.php", {
         "headers": { "content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
         "body": body,
         "method": "POST",
     }).then(data => data.text()).then(url => url.replace(/"/g, ''))
 
-    urls.push(`https://difoccus.websiteseguro.com/fotos/zip.php?z=${url}`)
+    const fullUrl = `https://difoccus.websiteseguro.com/fotos/zip.php?z=${url}`
+    console.log(`Generated file "${fullUrl}"`)
+
+    urls.push(fullUrl)
 }
+console.groupEnd()
 
 console.info("The URLs you need to download are: ", urls)
 
