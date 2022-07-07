@@ -13,7 +13,7 @@ const data = await fetch("https://difoccus.websiteseguro.com/fotos/api/Api.php",
 const urls = []
 
 console.group("Creating ZIPs...")
-for (const offset = 0; offset < PHOTO_COUNT; offset += PER_PAGE) {
+for (let offset = 0; offset < PHOTO_COUNT; offset += PER_PAGE) {
     const photos = [...data].splice(offset, PER_PAGE)
     const photosQuery = photos.map(f => f.original).map((original, idx) => `&imagens[${idx}][original]=${original}`).join('')
     const body = `apiuser=api&apipin=g3r3nc14d0r&action=download&contrato=${CONTRATO}&evento=${EVENTO}${photosQuery}`
